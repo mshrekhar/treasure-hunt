@@ -53,6 +53,7 @@ p{margin:0}
 .btn:focus-visible,.ask:focus-visible,input:focus-visible,select:focus-visible,.lb tr:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 input[type=text],select{font:500 15px var(--font-body);padding:9px 12px;border-radius:9px;border:1px solid #b9c7ca;background:#fff;color:var(--ink);min-width:0}
 .err{color:#a3241b;font-weight:600;font-size:14px}
+.err:empty{display:none}
 .chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:12px;font-weight:600;color:var(--ink-soft)}
 .chip i{width:7px;height:7px;border-radius:50%;background:var(--class)}
 .chip.on i{background:var(--good)}
@@ -76,6 +77,12 @@ main{padding:16px 0 48px}
 .opt.dark .muted{color:#a9bfc4}
 .opt.dark .btn{background:var(--gold);border-color:var(--gold);color:var(--ink)}
 .homefoot{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.about{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+@media(max-width:820px){.about{grid-template-columns:minmax(0,1fr)}}
+.rulescard{margin-top:14px}
+.rules{margin:14px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px;color:var(--ink)}
+.rules li{padding-left:2px}
+.strats td:first-child{font-weight:600}
 .linkbtn{background:none;border:0;padding:0;color:var(--ink);font:600 14px var(--font-body);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 
 /* lobby */
@@ -209,7 +216,27 @@ details.card table{margin-top:10px}
         <button class="btn big" data-solo type="button">Play</button>
       </div>
     </div>
-    <div class="homefoot muted small"><span>Find the treasure for the lowest cost by asking villagers which way to go.</span><button class="linkbtn" id="toLab" type="button">Experiment lab</button></div>
+    <div class="card rulescard">
+      <h3>How to play</h3>
+      <p class="muted small" style="margin-bottom:6px">Pick one strategy before the round. You keep it until the end.</p>
+      <table class="lb strats">
+        <thead><tr><th>Strategy</th><th>How you move</th><th>Cost</th><th>Wait</th></tr></thead>
+        <tbody>
+          <tr><td>Random steps</td><td>No asking. Each move goes in a random direction.</td><td>1 per move</td><td>none</td></tr>
+          <tr><td>Ask 1</td><td>Ask 1 villager, then move the way they point.</td><td>1 per ask</td><td>none</td></tr>
+          <tr><td>Ask 5</td><td>Ask 5 villagers, then move the way they point on average.</td><td>5 per ask</td><td>1.5 s</td></tr>
+          <tr><td>Ask all 40</td><td>Ask every villager, then move the way they point on average.</td><td>40 per ask</td><td>6 s</td></tr>
+        </tbody>
+      </table>
+      <ol class="rules">
+        <li>A treasure is buried somewhere on a foggy island. You start on the beach and only see tiles you've stepped on.</li>
+        <li>With an Ask strategy, you ask before every move. Each villager remembers the spot a little wrong, so more answers give a steadier direction.</li>
+        <li>You choose the step size at any time: 1, 2 or 3 tiles per move.</li>
+        <li>Hidden mines cost 10 and send you back to where you were.</li>
+        <li>Reach the treasure for the <b>lowest total cost</b> before time runs out.</li>
+      </ol>
+    </div>
+    <div class="homefoot small"><button class="linkbtn" id="toLab" type="button">Experiment lab</button></div>
   </section>
 
   <section id="v-pick" class="center" hidden>
